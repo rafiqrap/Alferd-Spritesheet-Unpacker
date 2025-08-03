@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Network Sensor Monitor</string>
+    
+    <!-- Navigation titles -->
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_network">Network</string>
+    <string name="title_sensors">Sensors</string>
+    <string name="title_settings">Settings</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard_title">Network &amp; Sensor Monitor</string>
+    <string name="network_status">Network Status</string>
+    <string name="quick_stats">Quick Stats</string>
+    <string name="active_sensors">Active Sensors</string>
+    <string name="recent_activity">Recent Activity</string>
+    <string name="run_speed_test">Run Speed Test</string>
+    <string name="running_speed_test">Running Speed Test...</string>
+    
+    <!-- Network -->
+    <string name="network_analysis">Network Analysis</string>
+    <string name="connection_status">Connection Status</string>
+    <string name="speed_test">Speed Test</string>
+    <string name="wifi_details">WiFi Details</string>
+    <string name="cellular_details">Cellular Details</string>
+    <string name="download">Download</string>
+    <string name="upload">Upload</string>
+    <string name="ping">Ping</string>
+    <string name="signal_strength">Signal Strength</string>
+    <string name="network_type">Network Type</string>
+    <string name="network_name">Network Name</string>
+    <string name="latency">Latency</string>
+    
+    <!-- Sensors -->
+    <string name="sensor_monitor">Sensor Monitor</string>
+    <string name="sensor_status">Sensor Status</string>
+    <string name="available">Available</string>
+    <string name="active">Active</string>
+    <string name="inactive">Inactive</string>
+    <string name="gps_location">GPS Location</string>
+    <string name="motion_sensors">Motion Sensors</string>
+    <string name="environmental_sensors">Environmental Sensors</string>
+    <string name="accelerometer">Accelerometer</string>
+    <string name="gyroscope">Gyroscope</string>
+    <string name="magnetometer">Magnetometer</string>
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="pressure">Pressure</string>
+    <string name="light">Light</string>
+    <string name="proximity">Proximity</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="altitude">Altitude</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="speed">Speed</string>
+    <string name="provider">Provider</string>
+    
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="app_information">App Information</string>
+    <string name="version">Version</string>
+    <string name="build">Build</string>
+    <string name="target_sdk">Target SDK</string>
+    <string name="features">Features</string>
+    <string name="permissions">Permissions</string>
+    
+    <!-- Common -->
+    <string name="unknown">Unknown</string>
+    <string name="refresh">Refresh</string>
+    <string name="start_test">Start Test</string>
+    <string name="running_test">Running Test...</string>
+    <string name="mbps">Mbps</string>
+    <string name="ms">ms</string>
+    <string name="celsius">°C</string>
+    <string name="percent">%</string>
+    <string name="hpa">hPa</string>
+    <string name="lux">lux</string>
+    <string name="cm">cm</string>
+    <string name="meters">m</string>
+    <string name="meters_per_sec">m/s</string>
+    <string name="degrees">°</string>
+    
+    <!-- Error messages -->
+    <string name="error_network">Network error occurred</string>
+    <string name="error_sensor">Sensor error occurred</string>
+    <string name="error_permission">Permission required</string>
+    <string name="no_data">No data available</string>
+    
+    <!-- Feature descriptions -->
+    <string name="feature_network_monitoring">✓ Network Speed Testing (WiFi, LTE, GPRS)</string>
+    <string name="feature_sensor_monitoring">✓ Real-time Sensor Monitoring</string>
+    <string name="feature_gps_tracking">✓ GPS Location Tracking</string>
+    <string name="feature_environmental">✓ Environmental Sensors</string>
+    <string name="feature_motion">✓ Motion Detection</string>
+    <string name="feature_material_design">✓ Material Design 3 UI</string>
+    
+    <!-- Permission descriptions -->
+    <string name="permission_internet">• Internet Access - For speed testing</string>
+    <string name="permission_location">• Location Access - For GPS tracking</string>
+    <string name="permission_network_state">• Network State - For connection monitoring</string>
+    <string name="permission_sensors">• Sensor Access - For device sensors</string>
+    <string name="permission_phone_state">• Phone State - For cellular info</string>
+</resources>
