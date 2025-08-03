@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Network Sensor Monitor</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="network">Network</string>
+    <string name="sensors">Sensors</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Network related strings -->
+    <string name="network_status">Network Status</string>
+    <string name="speed_test">Speed Test</string>
+    <string name="wifi_details">WiFi Details</string>
+    <string name="cellular_details">Cellular Details</string>
+    
+    <!-- Sensor related strings -->
+    <string name="sensor_monitor">Sensor Monitor</string>
+    <string name="location_data">Location Data</string>
+    <string name="motion_sensors">Motion Sensors</string>
+    <string name="environmental_sensors">Environmental Sensors</string>
+    
+    <!-- Permission messages -->
+    <string name="location_permission_required">Location permission is required for GPS tracking</string>
+    <string name="network_permission_required">Network permission is required for speed testing</string>
+    <string name="sensor_permission_required">Sensor permission is required for sensor monitoring</string>
+</resources>
