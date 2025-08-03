@@ -21,6 +21,8 @@ namespace ASU.UI
         private string FormTitle;
 
         private Bitmap ZoomImage;
+        private Bitmap OriginalImage = null;
+        private Bitmap PaintedImage = null;
 
         private string OverlayText;
         private Point MouseLocation;
@@ -39,6 +41,7 @@ namespace ASU.UI
         private Rectangle BoxSplitting;
         private Rectangle Hover = Rectangle.Empty;
         private OptionsForm Options;
+        private Rectangle HighlightRect = Rectangle.Empty;
 
         private bool SuppressThirdPartyWarningMessage = false;
         public static int DistanceBetweenTiles = 3;
@@ -110,6 +113,18 @@ namespace ASU.UI
             this.Boxes.Clear();
             this.Selected.Clear();
             this.Hover = Rectangle.Empty;
+
+            if (this.OriginalImage != null)
+            {
+                this.OriginalImage.Dispose();
+                this.OriginalImage = null;
+            }
+
+            if (this.PaintedImage != null)
+            {
+                this.PaintedImage.Dispose();
+                this.PaintedImage = null;
+            }  
 
             BO.RegionUnpacker.Counter = 0;
             SheetWithBoxes = null;
@@ -517,6 +532,7 @@ namespace ASU.UI
                                 }
                             }
                             this.DragAndDropLabel.Visible = false;
+                            this.ControlsHelpLabel.Visible = false;
                         }
                         this.StartUnpackers();
                         return;
@@ -544,7 +560,7 @@ namespace ASU.UI
             {
                 if (e.Button == System.Windows.Forms.MouseButtons.Right)
                 {
-                    this.ClickModeCheckBoxButton.Checked = !this.ClickModeCheckBoxButton.Checked;
+                    this.ToggleSelectSplitMode();
                 }
 
                 if (this.LoadingImage)
@@ -552,7 +568,11 @@ namespace ASU.UI
                     return;
                 }
 
-                if (!this.ClickModeCheckBoxButton.Checked)
+                if (ModifierKeys == Keys.Control)
+                {
+                    this.HighlightRect = new Rectangle(e.Location.X - this.Offset.X, e.Location.Y - this.Offset.Y, 1, 1);
+                }
+                else if (!this.SplitFrameCheckBoxButton.Checked)
                 {
                     if (this.Hover != Rectangle.Empty)
                     {
@@ -581,7 +601,7 @@ namespace ASU.UI
                         this.Boxes.AddRange(this.Splits);
                         this.Splits.Clear();
                         SheetWithBoxes = null;
-                        this.ClickModeCheckBoxButton.Checked = false;
+                        this.SetClickMode(false);
                         return;
                     }
                 }
@@ -611,7 +631,24 @@ namespace ASU.UI
 
                 if (this.IsMouseDown)
                 {
-                    this.Offset = new Point(e.Location.X - this.MouseDownLocation.X, e.Location.Y - this.MouseDownLocation.Y);
+                    if (ModifierKeys == Keys.Control)
+                    {
+                        this.HighlightRect = new Rectangle(MouseDownLocation.X, MouseDownLocation.Y, location.X - MouseDownLocation.X, location.Y - MouseDownLocation.Y);
+
+                        // Make sure the width and height are not negative.
+                        if (this.HighlightRect.Width < 0)
+                        {
+                            this.HighlightRect.Width = Math.Abs(this.HighlightRect.Width);
+                            this.HighlightRect.X = MouseDownLocation.X - HighlightRect.Width;
+                        }
+                        if (this.HighlightRect.Height < 0)
+                        {
+                            this.HighlightRect.Height = Math.Abs(this.HighlightRect.Height);
+                            this.HighlightRect.Y = MouseDownLocation.Y - HighlightRect.Height;
+                        }
+                    }
+                    else
+                        this.Offset = new Point(e.Location.X - this.MouseDownLocation.X, e.Location.Y - this.MouseDownLocation.Y);
                 }
                 else
                 {
@@ -621,7 +658,7 @@ namespace ASU.UI
                     {
                         if (box.Contains(location))
                         {
-                            if (this.ClickModeCheckBoxButton.Checked)
+                            if (this.SplitFrameCheckBoxButton.Checked)
                             {
                                 this.MainPanel.Cursor = Cursors.Cross;
                                 this.SplitBoxAtLocation(box, location);
@@ -664,14 +701,28 @@ namespace ASU.UI
         private void MainPanel_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             this.IsMouseDown = false;
+
+            if (this.HighlightRect != Rectangle.Empty)
+            {
+                this.Selected.Clear();
+
+                foreach (Rectangle box in this.Boxes)
+                {
+                    if (box.IntersectsWith(this.HighlightRect))
+                    {
+                        this.Selected.Add(box);
+                    }
+                }
+            }
+
+            this.HighlightRect = Rectangle.Empty;
         }
 
         private void MainPanel_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             Graphics graphics = null;
             Graphics zoomGraphics = null;
-            Bitmap originalImage = null;
-            Bitmap paintedImage = null;
+            bool refresh = false;
 
             try
             {
@@ -680,31 +731,34 @@ namespace ASU.UI
                     return;
                 }
 
-                if (this.unpackers.Count == 1)
+                if (
+                    (this.unpackers.Count == 1)
+                    && (OriginalImage == null)
+                    )
                 {
-                    originalImage = this.unpackers[0].GetOriginalClone();
+                    OriginalImage = this.unpackers[0].GetOriginalClone();
                 }
 
-                if (originalImage != null)
+                if (OriginalImage != null)
                 {
                     if (SheetWithBoxes == null)
                     {
                         Graphics boxGraphics = null;
                         try
                         {
-                            SheetWithBoxes = new Bitmap(originalImage);
+                            SheetWithBoxes = new Bitmap(OriginalImage);
                             boxGraphics = Graphics.FromImage(SheetWithBoxes);
                             boxGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
 
-                            Pen objZoomOutline;
-                            objZoomOutline = new Pen(Outline.Color, 1);
-                            SheetWithBoxesEnlarged = new Bitmap(originalImage);
+                            Pen zoomOutline;
+                            zoomOutline = new Pen(Outline.Color, 1);
+                            SheetWithBoxesEnlarged = new Bitmap(OriginalImage);
                             zoomGraphics = Graphics.FromImage(SheetWithBoxesEnlarged);
 
                             foreach (Rectangle box in this.Boxes)
                             {
                                 boxGraphics.DrawRectangle(Outline, box);
-                                zoomGraphics.DrawRectangle(objZoomOutline, box);
+                                zoomGraphics.DrawRectangle(zoomOutline, box);
                             }
                         }
                         finally
@@ -716,8 +770,40 @@ namespace ASU.UI
                         }
                     }
 
-                    paintedImage = new Bitmap(this.MainPanel.ClientRectangle.Width, this.MainPanel.ClientRectangle.Height);
-                    graphics = Graphics.FromImage(paintedImage);
+                    if (PaintedImage == null)
+                    {
+                        refresh = true;
+                    }
+                    else if (
+                                (PaintedImage != null)
+                                && (
+                                    this.MainPanel.ClientRectangle.Width != PaintedImage.Width 
+                                    || this.MainPanel.ClientRectangle.Height != PaintedImage.Height
+                                    )
+                            )
+                    {   
+                        refresh = true;
+                    }
+
+                    if (refresh)
+                    {
+                        if (PaintedImage != null)
+                        {
+                            PaintedImage.Dispose();
+                        }
+                        PaintedImage = new Bitmap(this.MainPanel.ClientRectangle.Width, this.MainPanel.ClientRectangle.Height);
+                    }
+
+                    graphics = Graphics.FromImage(PaintedImage);
+                    graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                    if (this.unpackers.Count >= 1)
+                    {
+                        graphics.Clear(this.unpackers[0].CreateOuterBackgroundColour());
+                    }
+                    else
+                    {
+                        graphics.Clear(Color.Black);
+                    }
                     graphics.DrawImage(SheetWithBoxes, this.Offset);
 
                     Rectangle boxOffset;
@@ -747,13 +833,22 @@ namespace ASU.UI
                         graphics.FillRectangle(SelectedFill, boxOffset);
                     }
 
+                    if (this.HighlightRect != Rectangle.Empty)
+                    {
+                        Rectangle highlightFixed = this.HighlightRect;
+                        highlightFixed.X += this.Offset.X;
+                        highlightFixed.Y += this.Offset.Y;
+
+                        graphics.DrawRectangle(Outline, highlightFixed);
+                    }
+
                     if (!this.IsMouseDown)
                     {
                         this.ZoomImage = new Bitmap(20, 20);
 
                         using (Graphics g = Graphics.FromImage(this.ZoomImage))
                         {
-                            g.DrawImage(paintedImage, 0, 0, new Rectangle(this.MouseLocation.X - 10, this.MouseLocation.Y - 10, 20, 20), GraphicsUnit.Pixel);
+                            g.DrawImage(PaintedImage, 0, 0, new Rectangle(this.MouseLocation.X - 10, this.MouseLocation.Y - 10, 20, 20), GraphicsUnit.Pixel);
                         }
 
                         if (this.ZoomPanel.BackgroundImage != null)
@@ -764,7 +859,7 @@ namespace ASU.UI
                         this.ZoomImage.Dispose();
                     }
 
-                    e.Graphics.DrawImage(paintedImage, new Point(0, 0));
+                    e.Graphics.DrawImage(PaintedImage, new Point(0, 0));
 
                     if (Outline.Color.GetBrightness() >= 0.5)
                     {
@@ -793,10 +888,6 @@ namespace ASU.UI
             }
             finally
             {
-                if (originalImage != null)
-                {
-                    originalImage.Dispose();
-                }
                 if (graphics != null)
                 {
                     graphics.Dispose();
@@ -804,10 +895,6 @@ namespace ASU.UI
                 if (zoomGraphics != null)
                 {
                     zoomGraphics.Dispose();
-                }
-                if (paintedImage != null)
-                {
-                    paintedImage.Dispose();
                 }
             }
         }
@@ -840,7 +927,6 @@ namespace ASU.UI
                         return;
                     }
                 }
-
 
                 foreach (Rectangle box in this.Selected)
                 {
@@ -987,6 +1073,10 @@ namespace ASU.UI
                                 outpath = System.IO.Path.Combine(this.ExportLocationTextBox.Text, unpacker.FileName);
                                 System.IO.Directory.CreateDirectory(outpath);
                             }
+
+                            // If the output folder does not exist, create it.
+                            if (!System.IO.Directory.Exists(outpath))
+                                System.IO.Directory.CreateDirectory(outpath);
 
                             int preFileCount = 0;
 
@@ -1151,7 +1241,7 @@ namespace ASU.UI
         {
             try
             {
-                if (!this.ClickModeCheckBoxButton.Checked)
+                if (!this.SplitFrameCheckBoxButton.Checked)
                 {
                     e.Graphics.DrawLine(ZoomPen, 0, (this.ZoomPanel.ClientRectangle.Height / 2f) + 2, this.ZoomPanel.ClientRectangle.Width, (this.ZoomPanel.ClientRectangle.Height / 2f) + 2);
                     e.Graphics.DrawLine(ZoomPen, (this.ZoomPanel.ClientRectangle.Width / 2f) + 2, 0, (this.ZoomPanel.ClientRectangle.Width / 2f) + 2, this.ZoomPanel.ClientRectangle.Height);
@@ -1244,6 +1334,7 @@ namespace ASU.UI
                 {
                     this.unpackers.Clear();
                     this.DragAndDropLabel.Visible = false;
+                    this.ControlsHelpLabel.Visible = false;
                     this.CreateUnpacker(new Bitmap(Clipboard.GetImage()), "clipboard");
                     this.StartUnpackers();
                 }
@@ -1321,6 +1412,7 @@ namespace ASU.UI
             if (this.unpackers.Count > 1 || this.unpackers.Count == 0)
             {
                 this.DragAndDropLabel.Visible = true;
+                this.ControlsHelpLabel.Visible = true;
                 this.MainPanel.BackColor = Color.FromArgb(224, 224, 224);
                 this.SetOverlayText(new List<string>(), new List<string>());
             }
@@ -1466,6 +1558,18 @@ namespace ASU.UI
 
             if (keyData == Keys.Escape)
             {
+                if (this.OriginalImage != null)
+                {
+                    this.OriginalImage.Dispose();
+                    this.OriginalImage = null;
+                }
+
+                if (this.PaintedImage != null)
+                {
+                    this.PaintedImage.Dispose();
+                    this.PaintedImage = null;
+                }
+
                 if (this.unpackers.Count == 1 && this.AreAllUnpacked())
                 {
                     this.unpackers.Clear();
@@ -1506,16 +1610,37 @@ namespace ASU.UI
         }
         #endregion
 
-        private void ClickModeCheckBoxButton_CheckedChanged(System.Object sender, System.EventArgs e)
+        private void SetClickMode(bool isSplit)
         {
-            if (this.ClickModeCheckBoxButton.Checked)
+            if (this.SplitFrameCheckBoxButton.Checked != isSplit)
             {
-                this.ClickModeCheckBoxButton.Image = global::ASU.Properties.Resources.cut;
+                this.ToggleSelectSplitMode();
+            }
+        }
+
+        private void ToggleSelectSplitMode()
+        {
+            this.SplitFrameCheckBoxButton.Checked = !this.SplitFrameCheckBoxButton.Checked;
+            this.SetCurrentSelectSplitModeTextAndIcon();
+        }
+
+        private void SetCurrentSelectSplitModeTextAndIcon()
+        {
+            if (this.SplitFrameCheckBoxButton.Checked)
+            {
+                this.SplitFrameCheckBoxButton.Image = global::ASU.Properties.Resources.cursor;
+                this.SplitFrameCheckBoxButton.Text = "Select";
             }
             else
             {
-                this.ClickModeCheckBoxButton.Image = global::ASU.Properties.Resources.cursor;
+                this.SplitFrameCheckBoxButton.Image = global::ASU.Properties.Resources.cut;
+                this.SplitFrameCheckBoxButton.Text = "Split";
             }
+        }
+
+        private void ClickModeCheckBoxButton_CheckedChanged(System.Object sender, System.EventArgs e)
+        {
+            this.SetCurrentSelectSplitModeTextAndIcon();
         }
     }
 }

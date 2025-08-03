@@ -58,7 +58,7 @@ namespace ASU.BO
         private Bitmap RemoveTransparencyFromImage(Bitmap image)
         {
             Dictionary<int, Color> coloursByArgb = new Dictionary<int, Color>();
-            Dictionary<Point, Color> transparentPixelsByCoord = new Dictionary<Point, Color>();
+            Dictionary<uint, Color> transparentPixelsByCoord = new Dictionary<uint, Color>();
             Dictionary<Color, Color> opaquedByTransparent = new Dictionary<Color, Color>();
             Color pixel;
             bool containsTransparency = false;
@@ -78,16 +78,18 @@ namespace ASU.BO
                     if (pixel.A < 255)
                     {
                         containsTransparency = true;
-                        transparentPixelsByCoord.Add(new Point(x, y), pixel);
+                        transparentPixelsByCoord.Add(GetHashFromCoord(new Point(x, y)), pixel);
                     }
                 }
             }
 
             if (containsTransparency)
             {
-                foreach (Point coord in transparentPixelsByCoord.Keys)
+                foreach (uint coordHash in transparentPixelsByCoord.Keys)
                 {
-                    transparentPixel = transparentPixelsByCoord[coord];
+                    Point coord = GetCoordFromHash(coordHash);
+
+                    transparentPixel = transparentPixelsByCoord[coordHash];
                     if (opaquedByTransparent.ContainsKey(transparentPixel))
                     {
                         opaquedPixel = opaquedByTransparent[transparentPixel];
@@ -137,6 +139,22 @@ namespace ASU.BO
         public bool IsBackgroundColourSet()
         {
             return this._isBackgroundColourSet;
+        }
+
+        public Color CreateOuterBackgroundColour()
+        {
+            Color backgroundColour;
+
+            backgroundColour = this.GetBackgroundColour();
+
+            if (backgroundColour.GetBrightness() > .2f)
+            {
+                return Color.FromArgb(Math.Max(0, backgroundColour.R - 25), Math.Max(0, backgroundColour.G - 25), Math.Max(0, backgroundColour.B - 25));
+            }
+            else
+            {
+                return Color.FromArgb(Math.Min(255, backgroundColour.R + 25), Math.Min(255, backgroundColour.G + 25), Math.Min(255, backgroundColour.B + 25));
+            }
         }
 
         public Color GetBackgroundColour()
@@ -457,6 +475,16 @@ namespace ASU.BO
             {
                 UnpackingComplete();
             }
+        }
+
+        private Point GetCoordFromHash(uint hash)
+        {
+            return new Point((int)(hash >> 16), (int)(hash & 0x0000FFFF));
+        }
+
+        private uint GetHashFromCoord(Point point)
+        {
+            return (uint)((point.X << 16) + point.Y);
         }
     }
 }

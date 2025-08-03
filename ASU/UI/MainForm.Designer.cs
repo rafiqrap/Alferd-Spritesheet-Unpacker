@@ -31,7 +31,7 @@ namespace ASU.UI
             this.SelectAllButton = new System.Windows.Forms.Button();
             this.DeSelectAllButton = new System.Windows.Forms.Button();
             this.ExportLocationLabel = new System.Windows.Forms.Label();
-            this.ClickModeCheckBoxButton = new System.Windows.Forms.CheckBox();
+            this.SplitFrameCheckBoxButton = new System.Windows.Forms.CheckBox();
             this.PasteButton = new System.Windows.Forms.Button();
             this.ReloadButton = new System.Windows.Forms.Button();
             this.ExportSelectedButton = new System.Windows.Forms.Button();
@@ -42,6 +42,7 @@ namespace ASU.UI
             this.CheckForUnpackFinishTimer = new System.Windows.Forms.Timer(this.components);
             this.ImageClipperAndAnimatorTimer = new ForkandBeard.Util.UI.AutoBalancingFormTimer(this.components);
             this.MainPanel = new ASU.UI.BuffablePanel(this.components);
+            this.ControlsHelpLabel = new System.Windows.Forms.Label();
             this.HyperModeUnpacking0Label = new System.Windows.Forms.Label();
             this.HyperModeUnpacking1Label = new System.Windows.Forms.Label();
             this.HyperModeUnpackingLabel = new System.Windows.Forms.Label();
@@ -57,7 +58,7 @@ namespace ASU.UI
             this.OptionsPanel.Controls.Add(this.SelectAllButton);
             this.OptionsPanel.Controls.Add(this.DeSelectAllButton);
             this.OptionsPanel.Controls.Add(this.ExportLocationLabel);
-            this.OptionsPanel.Controls.Add(this.ClickModeCheckBoxButton);
+            this.OptionsPanel.Controls.Add(this.SplitFrameCheckBoxButton);
             this.OptionsPanel.Controls.Add(this.PasteButton);
             this.OptionsPanel.Controls.Add(this.ReloadButton);
             this.OptionsPanel.Controls.Add(this.ExportSelectedButton);
@@ -110,19 +111,19 @@ namespace ASU.UI
             this.ExportLocationLabel.TabIndex = 8;
             this.ExportLocationLabel.Text = "export location:";
             // 
-            // ClickModeCheckBoxButton
+            // SplitFrameCheckBoxButton
             // 
-            this.ClickModeCheckBoxButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ClickModeCheckBoxButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ClickModeCheckBoxButton.Image = global::ASU.Properties.Resources.cursor;
-            this.ClickModeCheckBoxButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ClickModeCheckBoxButton.Location = new System.Drawing.Point(266, 6);
-            this.ClickModeCheckBoxButton.Name = "ClickModeCheckBoxButton";
-            this.ClickModeCheckBoxButton.Size = new System.Drawing.Size(78, 35);
-            this.ClickModeCheckBoxButton.TabIndex = 4;
-            this.ClickModeCheckBoxButton.Text = "Click Mode";
-            this.ClickModeCheckBoxButton.UseVisualStyleBackColor = true;
-            this.ClickModeCheckBoxButton.Click += new System.EventHandler(this.ClickModeCheckBoxButton_CheckedChanged);
+            this.SplitFrameCheckBoxButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SplitFrameCheckBoxButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.SplitFrameCheckBoxButton.Image = global::ASU.Properties.Resources.cut;
+            this.SplitFrameCheckBoxButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.SplitFrameCheckBoxButton.Location = new System.Drawing.Point(266, 6);
+            this.SplitFrameCheckBoxButton.Name = "SplitFrameCheckBoxButton";
+            this.SplitFrameCheckBoxButton.Size = new System.Drawing.Size(78, 35);
+            this.SplitFrameCheckBoxButton.TabIndex = 4;
+            this.SplitFrameCheckBoxButton.Text = "Split ";
+            this.SplitFrameCheckBoxButton.UseVisualStyleBackColor = true;
+            this.SplitFrameCheckBoxButton.Click += new System.EventHandler(this.ClickModeCheckBoxButton_CheckedChanged);
             // 
             // PasteButton
             // 
@@ -133,7 +134,7 @@ namespace ASU.UI
             this.PasteButton.Name = "PasteButton";
             this.PasteButton.Size = new System.Drawing.Size(78, 35);
             this.PasteButton.TabIndex = 2;
-            this.PasteButton.Text = "From Clipboard";
+            this.PasteButton.Text = "Paste Image";
             this.PasteButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PasteButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.PasteButton.UseVisualStyleBackColor = true;
@@ -222,6 +223,7 @@ namespace ASU.UI
             this.MainPanel.AllowDrop = true;
             this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.MainPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.MainPanel.Controls.Add(this.ControlsHelpLabel);
             this.MainPanel.Controls.Add(this.HyperModeUnpacking0Label);
             this.MainPanel.Controls.Add(this.HyperModeUnpacking1Label);
             this.MainPanel.Controls.Add(this.HyperModeUnpackingLabel);
@@ -242,6 +244,18 @@ namespace ASU.UI
             this.MainPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseMove);
             this.MainPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseUp);
             // 
+            // ControlsHelpLabel
+            // 
+            this.ControlsHelpLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ControlsHelpLabel.AutoSize = true;
+            this.ControlsHelpLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ControlsHelpLabel.ForeColor = System.Drawing.Color.Gray;
+            this.ControlsHelpLabel.Location = new System.Drawing.Point(2, 170);
+            this.ControlsHelpLabel.Name = "ControlsHelpLabel";
+            this.ControlsHelpLabel.Size = new System.Drawing.Size(307, 65);
+            this.ControlsHelpLabel.TabIndex = 6;
+            this.ControlsHelpLabel.Text = resources.GetString("ControlsHelpLabel.Text");
+            // 
             // HyperModeUnpacking0Label
             // 
             this.HyperModeUnpacking0Label.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -249,7 +263,7 @@ namespace ASU.UI
             this.HyperModeUnpacking0Label.BackColor = System.Drawing.Color.Transparent;
             this.HyperModeUnpacking0Label.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HyperModeUnpacking0Label.ForeColor = System.Drawing.Color.Gray;
-            this.HyperModeUnpacking0Label.Location = new System.Drawing.Point(346, 103);
+            this.HyperModeUnpacking0Label.Location = new System.Drawing.Point(346, 77);
             this.HyperModeUnpacking0Label.Name = "HyperModeUnpacking0Label";
             this.HyperModeUnpacking0Label.Size = new System.Drawing.Size(61, 40);
             this.HyperModeUnpacking0Label.TabIndex = 5;
@@ -264,7 +278,7 @@ namespace ASU.UI
             this.HyperModeUnpacking1Label.BackColor = System.Drawing.Color.Transparent;
             this.HyperModeUnpacking1Label.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HyperModeUnpacking1Label.ForeColor = System.Drawing.Color.Gray;
-            this.HyperModeUnpacking1Label.Location = new System.Drawing.Point(466, 103);
+            this.HyperModeUnpacking1Label.Location = new System.Drawing.Point(466, 77);
             this.HyperModeUnpacking1Label.Name = "HyperModeUnpacking1Label";
             this.HyperModeUnpacking1Label.Size = new System.Drawing.Size(57, 40);
             this.HyperModeUnpacking1Label.TabIndex = 4;
@@ -278,7 +292,7 @@ namespace ASU.UI
             this.HyperModeUnpackingLabel.BackColor = System.Drawing.Color.Transparent;
             this.HyperModeUnpackingLabel.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HyperModeUnpackingLabel.ForeColor = System.Drawing.Color.Gray;
-            this.HyperModeUnpackingLabel.Location = new System.Drawing.Point(399, 103);
+            this.HyperModeUnpackingLabel.Location = new System.Drawing.Point(399, 77);
             this.HyperModeUnpackingLabel.Name = "HyperModeUnpackingLabel";
             this.HyperModeUnpackingLabel.Size = new System.Drawing.Size(76, 40);
             this.HyperModeUnpackingLabel.TabIndex = 3;
@@ -301,7 +315,7 @@ namespace ASU.UI
             // 
             this.DragAndDropLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.DragAndDropLabel.AutoSize = true;
-            this.DragAndDropLabel.Location = new System.Drawing.Point(216, 103);
+            this.DragAndDropLabel.Location = new System.Drawing.Point(216, 77);
             this.DragAndDropLabel.Name = "DragAndDropLabel";
             this.DragAndDropLabel.Size = new System.Drawing.Size(385, 40);
             this.DragAndDropLabel.TabIndex = 1;
@@ -354,7 +368,7 @@ namespace ASU.UI
         internal System.Windows.Forms.Timer CheckForUnpackFinishTimer;
         internal System.Windows.Forms.Label DragAndDropLabel;
         internal ForkandBeard.Util.UI.AutoBalancingFormTimer ImageClipperAndAnimatorTimer;
-        internal System.Windows.Forms.CheckBox ClickModeCheckBoxButton;
+        internal System.Windows.Forms.CheckBox SplitFrameCheckBoxButton;
         internal System.Windows.Forms.Label ExportLocationLabel;
         internal System.Windows.Forms.Button SelectAllButton;
 
@@ -362,5 +376,6 @@ namespace ASU.UI
         internal System.Windows.Forms.Label HyperModeUnpackingLabel;
         internal System.Windows.Forms.Label HyperModeUnpacking0Label;
         internal System.Windows.Forms.Label HyperModeUnpacking1Label;
+        internal System.Windows.Forms.Label ControlsHelpLabel;
     }
 }
