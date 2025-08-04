@@ -21,9 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.networksensor.app.R;
 
 import java.text.DecimalFormat;
 import java.util.concurrent.ExecutorService;

@@ -68,15 +68,6 @@
             android:label="Sensor Hub"
             android:theme="@style/Theme.NetworkSensorApp" />
         
-        <!-- Background service for continuous monitoring -->
-        <service
-            android:name=".service.NetworkMonitoringService"
-            android:enabled="true"
-            android:exported="false" />
-            
-        <service
-            android:name=".service.SensorMonitoringService"
-            android:enabled="true"
-            android:exported="false" />
+
     </application>
 </manifest>
