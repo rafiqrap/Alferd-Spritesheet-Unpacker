@@ -1,16 +1,15 @@
-# Network Sensor Monitor - Java Android App
+# Network Sensor Monitor - Pure Java Android App
 
-A modern, beautiful Android application built in Java for monitoring network performance and device sensors in real-time. This app features a stunning Material Design 3 interface with gradient cards, smooth animations, and comprehensive network analysis tools.
+A modern, beautiful Android application built entirely in **Java** for monitoring network performance and device sensors in real-time. This app features a stunning Material Design 3 interface with gradient cards, smooth animations, and comprehensive network analysis tools.
 
 ## 🌟 Features
 
 ### 🎨 Beautiful Modern Design
 - **Material Design 3** with custom color schemes
-- **Gradient cards** and glass morphism effects
+- **Gradient cards** and modern UI components
 - **Smooth animations** and transitions
-- **Dark/Light theme** support
-- **Custom typography** and spacing
 - **Professional UI/UX** with modern components
+- **Custom typography** and spacing
 
 ### 📊 Network Monitoring
 - **Real-time network status** monitoring
@@ -23,12 +22,12 @@ A modern, beautiful Android application built in Java for monitoring network per
 ### 📱 Device Sensors
 - **Accelerometer** monitoring
 - **Gyroscope** data tracking
-- **GPS location** services
+- **Magnetometer** readings
 - **Environmental sensors** (temperature, humidity, pressure)
 - **Real-time sensor** data visualization
 
 ### 🔧 Technical Features
-- **Java-based** Android development
+- **Pure Java** Android development
 - **Latest Android APIs** (API 35)
 - **Modern architecture** with MVVM pattern
 - **Dependency injection** with Hilt
@@ -80,22 +79,15 @@ The app requires the following permissions:
 - **MainActivity.java** - Main dashboard with navigation
 - **NetworkMonitorActivity.java** - Network monitoring interface
 - **SensorHubActivity.java** - Sensor data visualization
-- **SettingsActivity.java** - App configuration
 
 #### Adapters
 - **DashboardAdapter.java** - RecyclerView adapter for dashboard items
-- **NetworkAdapter.java** - Network data display
-- **SensorAdapter.java** - Sensor data display
 
 #### Models
 - **DashboardItem.java** - Dashboard data model
-- **NetworkInfo.java** - Network information model
-- **SensorData.java** - Sensor data model
 
-#### UI Components
-- **GradientCard.kt** - Beautiful gradient card component
-- **GlassCard.kt** - Glass morphism card component
-- **Custom themes** and color schemes
+#### Application
+- **NetworkSensorApplication.java** - Application class with Hilt setup
 
 ### Architecture
 
@@ -103,20 +95,41 @@ The app requires the following permissions:
 app/
 ├── src/main/
 │   ├── java/com/networksensor/app/
-│   │   ├── activities/          # Main activities
-│   │   ├── adapters/           # RecyclerView adapters
-│   │   ├── models/             # Data models
-│   │   ├── services/           # Background services
-│   │   ├── utils/              # Utility classes
-│   │   └── ui/                 # UI components
-│   │       ├── components/     # Custom UI components
-│   │       ├── theme/          # App theming
-│   │       └── screens/        # Screen-specific UI
+│   │   ├── MainActivity.java              # Main dashboard
+│   │   ├── NetworkMonitorActivity.java    # Network monitoring
+│   │   ├── SensorHubActivity.java         # Sensor monitoring
+│   │   ├── NetworkSensorApplication.java  # Application class
+│   │   ├── adapters/                      # RecyclerView adapters
+│   │   │   └── DashboardAdapter.java
+│   │   └── models/                        # Data models
+│   │       └── DashboardItem.java
 │   └── res/
-│       ├── layout/             # XML layouts
-│       ├── values/             # Resources
-│       ├── drawable/           # Icons and graphics
-│       └── menu/               # Navigation menus
+│       ├── layout/                        # XML layouts
+│       │   ├── activity_main.xml
+│       │   ├── activity_network_monitor.xml
+│       │   ├── activity_sensor_hub.xml
+│       │   ├── item_feature_card.xml
+│       │   ├── item_activity.xml
+│       │   └── item_status_card.xml
+│       ├── values/                        # Resources
+│       │   ├── colors.xml
+│       │   ├── strings.xml
+│       │   └── themes.xml
+│       ├── drawable/                      # Icons and graphics
+│       │   ├── ic_dashboard.xml
+│       │   ├── ic_network.xml
+│       │   ├── ic_sensors.xml
+│       │   ├── ic_settings.xml
+│       │   ├── ic_wifi.xml
+│       │   ├── ic_speed.xml
+│       │   ├── ic_arrow_forward.xml
+│       │   ├── ic_play_arrow.xml
+│       │   ├── ic_check_circle.xml
+│       │   └── ic_location_on.xml
+│       ├── menu/                          # Navigation menus
+│       │   └── bottom_nav_menu.xml
+│       └── color/                         # Color selectors
+│           └── bottom_nav_item_color.xml
 ```
 
 ## 🎨 Design System
@@ -139,7 +152,6 @@ app/
 ### Components
 - **Material Cards** with rounded corners (16dp)
 - **Gradient backgrounds** for feature cards
-- **Glass morphism** effects
 - **Progress bars** with custom colors
 - **Chips** for status indicators
 
@@ -190,9 +202,8 @@ app/
 - **Accelerometer** data visualization
 - **Gyroscope** readings
 - **Magnetometer** information
-- **GPS location** tracking
 - **Environmental sensors** monitoring
-- **Real-time charts** and graphs
+- **Real-time data** display
 
 ### Dashboard
 - **Quick stats** cards
@@ -241,11 +252,10 @@ app/
 - **Notification** system for alerts
 
 ### Technical Improvements
-- **Kotlin migration** for new features
-- **Jetpack Compose** integration
 - **Advanced animations** and transitions
 - **Accessibility** improvements
 - **Internationalization** support
+- **Background services** for continuous monitoring
 
 ## 🤝 Contributing
 
@@ -277,4 +287,4 @@ For support and questions:
 
 ---
 
-**Built with ❤️ using Java and modern Android development practices**
+**Built with ❤️ using Pure Java and modern Android development practices**

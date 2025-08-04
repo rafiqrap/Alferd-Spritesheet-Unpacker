@@ -56,6 +56,18 @@
             </intent-filter>
         </activity>
         
+        <activity
+            android:name=".NetworkMonitorActivity"
+            android:exported="false"
+            android:label="Network Monitor"
+            android:theme="@style/Theme.NetworkSensorApp" />
+            
+        <activity
+            android:name=".SensorHubActivity"
+            android:exported="false"
+            android:label="Sensor Hub"
+            android:theme="@style/Theme.NetworkSensorApp" />
+        
         <!-- Background service for continuous monitoring -->
         <service
             android:name=".service.NetworkMonitoringService"
