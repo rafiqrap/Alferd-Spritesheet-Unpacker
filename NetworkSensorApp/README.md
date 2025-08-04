@@ -1,247 +1,280 @@
-# Network & Sensor Monitor App
+# Network Sensor Monitor - Java Android App
 
-A modern Android application built with Jetpack Compose that provides comprehensive network monitoring and sensor data collection capabilities targeting Android API 35.
+A modern, beautiful Android application built in Java for monitoring network performance and device sensors in real-time. This app features a stunning Material Design 3 interface with gradient cards, smooth animations, and comprehensive network analysis tools.
 
-## Features
+## 🌟 Features
 
-### 🌐 Network Monitoring
-- **Real-time Network Analysis**: Monitor WiFi, LTE, 4G, 5G, 3G, 2G, and GPRS connections
-- **Speed Testing**: Comprehensive download/upload speed tests with latency measurement
-- **Connection Details**: 
-  - WiFi: SSID, BSSID, frequency, link speed, RSSI, IP address
-  - Cellular: Network type, operator, MCC/MNC, signal strength, cell info
-- **Network Type Detection**: Automatic detection and classification of connection types
+### 🎨 Beautiful Modern Design
+- **Material Design 3** with custom color schemes
+- **Gradient cards** and glass morphism effects
+- **Smooth animations** and transitions
+- **Dark/Light theme** support
+- **Custom typography** and spacing
+- **Professional UI/UX** with modern components
 
-### 📱 Sensor Monitoring
-- **Motion Sensors**: Accelerometer, gyroscope, magnetometer, gravity, linear acceleration
-- **Environmental Sensors**: Temperature, humidity, pressure, light, proximity
-- **Location Services**: GPS tracking with latitude, longitude, altitude, accuracy, speed
-- **Real-time Data**: Live sensor readings with high-frequency sampling
-- **Sensor Availability**: Automatic detection of available device sensors
+### 📊 Network Monitoring
+- **Real-time network status** monitoring
+- **WiFi analysis** with signal strength
+- **Cellular network** detection (2G/3G/4G/5G)
+- **Speed testing** functionality
+- **Network type** identification
+- **IP address** and connection details
 
-### 🎨 Modern UI/UX
-- **Material Design 3**: Latest Material You design principles
-- **Jetpack Compose**: Fully declarative UI with modern Android development
-- **Dynamic Theming**: Supports system-wide dynamic colors (Android 12+)
-- **Responsive Design**: Optimized for different screen sizes and orientations
-- **Real-time Updates**: Live data visualization with smooth animations
+### 📱 Device Sensors
+- **Accelerometer** monitoring
+- **Gyroscope** data tracking
+- **GPS location** services
+- **Environmental sensors** (temperature, humidity, pressure)
+- **Real-time sensor** data visualization
 
-### 📊 Dashboard & Analytics
-- **Overview Dashboard**: Quick stats and network/sensor status at a glance
-- **Recent Activity**: Timeline of network changes and sensor events
-- **Quick Actions**: One-tap speed tests and sensor monitoring
-- **Visual Indicators**: Color-coded status indicators for easy interpretation
+### 🔧 Technical Features
+- **Java-based** Android development
+- **Latest Android APIs** (API 35)
+- **Modern architecture** with MVVM pattern
+- **Dependency injection** with Hilt
+- **Room database** for data persistence
+- **Retrofit** for network operations
+- **Material Components** for UI
 
-## Architecture
-
-### Modern Android Architecture
-- **MVVM Pattern**: Model-View-ViewModel architecture with clean separation
-- **Repository Pattern**: Centralized data management with single source of truth
-- **Dependency Injection**: Hilt for dependency management
-- **Reactive Programming**: Kotlin Coroutines and Flow for asynchronous operations
-
-### Key Components
-```
-├── data/
-│   ├── model/          # Data classes for network and sensor data
-│   └── repository/     # Data repositories for network and sensor operations
-├── di/                 # Dependency injection modules
-├── ui/
-│   ├── navigation/     # Navigation component setup
-│   ├── screens/        # UI screens (Dashboard, Network, Sensors, Settings)
-│   └── theme/          # Material Design 3 theming
-└── MainActivity.kt     # Main entry point
-```
-
-### Technology Stack
-- **Language**: Kotlin
-- **UI Framework**: Jetpack Compose
-- **Architecture**: MVVM + Repository Pattern
-- **Dependency Injection**: Hilt
-- **Async Programming**: Coroutines + Flow
-- **Networking**: OkHttp + Retrofit
-- **Navigation**: Navigation Compose
-- **Material Design**: Material 3 Components
-
-## Permissions
-
-The app requires the following permissions for full functionality:
-
-### Network Permissions
-- `INTERNET` - For speed testing and network requests
-- `ACCESS_NETWORK_STATE` - For monitoring network connections
-- `ACCESS_WIFI_STATE` - For WiFi network information
-- `CHANGE_WIFI_STATE` - For WiFi operations
-- `READ_PHONE_STATE` - For cellular network information
-
-### Location Permissions
-- `ACCESS_FINE_LOCATION` - For precise GPS tracking
-- `ACCESS_COARSE_LOCATION` - For approximate location
-- `ACCESS_BACKGROUND_LOCATION` - For background location updates
-
-### Sensor Permissions
-- `BODY_SENSORS` - For health-related sensors
-- `HIGH_SAMPLING_RATE_SENSORS` - For high-frequency sensor data
-
-## Setup Instructions
+## 🚀 Getting Started
 
 ### Prerequisites
-- Android Studio Hedgehog or later
-- Android SDK 35
-- Kotlin 1.9.22 or later
-- Gradle 8.2.0 or later
+- Android Studio Arctic Fox or later
+- Android SDK API 35
+- Java 17
+- Minimum Android version: API 24 (Android 7.0)
 
 ### Installation
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd NetworkSensorApp
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/NetworkSensorApp.git
+   cd NetworkSensorApp
+   ```
+
+2. **Open in Android Studio**
+   - Open Android Studio
+   - Select "Open an existing project"
+   - Navigate to the NetworkSensorApp folder
+   - Click "OK"
+
+3. **Sync and Build**
+   - Wait for Gradle sync to complete
+   - Build the project (Build → Make Project)
+   - Run on device or emulator
+
+### Permissions Required
+
+The app requires the following permissions:
+- `INTERNET` - For network monitoring
+- `ACCESS_NETWORK_STATE` - Network status checking
+- `ACCESS_WIFI_STATE` - WiFi information
+- `ACCESS_FINE_LOCATION` - GPS and location services
+- `BODY_SENSORS` - Sensor data access
+
+## 📱 App Structure
+
+### Main Components
+
+#### Activities
+- **MainActivity.java** - Main dashboard with navigation
+- **NetworkMonitorActivity.java** - Network monitoring interface
+- **SensorHubActivity.java** - Sensor data visualization
+- **SettingsActivity.java** - App configuration
+
+#### Adapters
+- **DashboardAdapter.java** - RecyclerView adapter for dashboard items
+- **NetworkAdapter.java** - Network data display
+- **SensorAdapter.java** - Sensor data display
+
+#### Models
+- **DashboardItem.java** - Dashboard data model
+- **NetworkInfo.java** - Network information model
+- **SensorData.java** - Sensor data model
+
+#### UI Components
+- **GradientCard.kt** - Beautiful gradient card component
+- **GlassCard.kt** - Glass morphism card component
+- **Custom themes** and color schemes
+
+### Architecture
+
+```
+app/
+├── src/main/
+│   ├── java/com/networksensor/app/
+│   │   ├── activities/          # Main activities
+│   │   ├── adapters/           # RecyclerView adapters
+│   │   ├── models/             # Data models
+│   │   ├── services/           # Background services
+│   │   ├── utils/              # Utility classes
+│   │   └── ui/                 # UI components
+│   │       ├── components/     # Custom UI components
+│   │       ├── theme/          # App theming
+│   │       └── screens/        # Screen-specific UI
+│   └── res/
+│       ├── layout/             # XML layouts
+│       ├── values/             # Resources
+│       ├── drawable/           # Icons and graphics
+│       └── menu/               # Navigation menus
 ```
 
-2. Open the project in Android Studio
+## 🎨 Design System
 
-3. Sync the project with Gradle files
+### Color Palette
+- **Primary Blue**: #2196F3
+- **Primary Teal**: #009688
+- **Primary Purple**: #9C27B0
+- **Success Green**: #4CAF50
+- **Warning Orange**: #FF9800
+- **Error Red**: #F44336
 
-4. Build and run the app on a device or emulator
+### Typography
+- **Display Large**: 32sp, Bold
+- **Headline Large**: 22sp, SemiBold
+- **Title Large**: 16sp, SemiBold
+- **Body Large**: 16sp, Regular
+- **Label Medium**: 12sp, Medium
 
-### Building
-```bash
-# Debug build
-./gradlew assembleDebug
+### Components
+- **Material Cards** with rounded corners (16dp)
+- **Gradient backgrounds** for feature cards
+- **Glass morphism** effects
+- **Progress bars** with custom colors
+- **Chips** for status indicators
 
-# Release build
-./gradlew assembleRelease
+## 🔧 Development
 
-# Run tests
-./gradlew test
-```
+### Key Technologies Used
 
-## Usage
+#### Core Android
+- **Java 17** - Primary programming language
+- **Android SDK 35** - Latest Android APIs
+- **Material Design 3** - Modern UI components
+- **ViewBinding** - Type-safe view access
 
-### Dashboard Screen
-- View overall network and sensor status
-- Quick access to speed tests
-- Monitor recent activity and system health
-- Real-time updates of key metrics
+#### Architecture & Dependencies
+- **MVVM Pattern** - Architecture pattern
+- **Hilt** - Dependency injection
+- **Room** - Local database
+- **Retrofit** - HTTP client
+- **LiveData** - Observable data holders
+- **ViewModel** - UI state management
 
-### Network Screen
-- Detailed network analysis and monitoring
-- Run comprehensive speed tests
-- View WiFi and cellular connection details
-- Monitor signal strength and connection quality
+#### UI & Design
+- **Material Components** - UI components
+- **ConstraintLayout** - Flexible layouts
+- **RecyclerView** - Efficient list display
+- **CardView** - Material cards
+- **BottomNavigationView** - Navigation
+- **FloatingActionButton** - Quick actions
 
-### Sensors Screen
-- Real-time sensor data visualization
-- GPS location tracking
-- Motion sensor readings (accelerometer, gyroscope)
-- Environmental data (temperature, humidity, pressure)
+### Code Quality
+- **Clean Architecture** principles
+- **SOLID** design patterns
+- **Java coding conventions**
+- **Comprehensive error handling**
+- **Performance optimization**
 
-### Settings Screen
-- App information and version details
-- Feature overview
-- Permission requirements
+## 📊 Features in Detail
 
-## Key Features Implementation
+### Network Monitoring
+- **Real-time connectivity** status
+- **Network type** detection (WiFi/Cellular/Ethernet)
+- **Signal strength** measurement
+- **Speed testing** with visual feedback
+- **Network details** (SSID, IP, MAC address)
+- **Cellular generation** detection (2G/3G/4G/5G)
 
-### Network Speed Testing
-```kotlin
-// Real-time speed testing with multiple endpoints
-suspend fun performSpeedTest(): Flow<SpeedTestResult> = flow {
-    val testUrls = listOf(
-        "https://speed.cloudflare.com/__down?bytes=25000000",
-        "https://httpbin.org/bytes/10000000"
-    )
-    // Implementation details...
-}
-```
+### Sensor Hub
+- **Accelerometer** data visualization
+- **Gyroscope** readings
+- **Magnetometer** information
+- **GPS location** tracking
+- **Environmental sensors** monitoring
+- **Real-time charts** and graphs
 
-### Sensor Data Collection
-```kotlin
-// Real-time sensor monitoring
-fun getSensorReading(sensorType: SensorType): Flow<SensorReading> = callbackFlow {
-    val sensor = getSensorBySensorType(sensorType)
-    val listener = object : SensorEventListener {
-        override fun onSensorChanged(event: SensorEvent?) {
-            // Process sensor data...
-        }
-    }
-    // Implementation details...
-}
-```
+### Dashboard
+- **Quick stats** cards
+- **Recent activity** feed
+- **Feature navigation** cards
+- **Status indicators** with colors
+- **Swipe refresh** functionality
+- **Bottom navigation** menu
 
-### Modern UI with Compose
-```kotlin
-@Composable
-fun NetworkOverviewCard(
-    networkInfo: NetworkInfo?,
-    onSpeedTestClick: () -> Unit,
-    isSpeedTestRunning: Boolean
-) {
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        )
-    ) {
-        // Modern Material Design 3 UI implementation...
-    }
-}
-```
+## 🚀 Performance
 
-## Device Compatibility
+### Optimizations
+- **Efficient RecyclerView** usage
+- **Background processing** for heavy operations
+- **Memory management** best practices
+- **Network request** optimization
+- **UI thread** protection
 
-### Minimum Requirements
-- **Android Version**: API 24 (Android 7.0)
-- **Target Version**: API 35 (Android 15)
-- **RAM**: 2GB minimum, 4GB recommended
-- **Storage**: 100MB for app installation
+### Battery Optimization
+- **Smart sensor** polling
+- **Background service** optimization
+- **Location services** efficiency
+- **Network monitoring** intervals
 
-### Sensor Support
-The app automatically detects available sensors and adapts functionality accordingly:
-- Accelerometer, Gyroscope, Magnetometer
-- GPS/Location Services
-- Temperature, Humidity, Pressure sensors
-- Light and Proximity sensors
-- Network connectivity sensors
+## 🔒 Security
 
-### Network Support
-- WiFi (2.4GHz and 5GHz)
-- Cellular: 5G, LTE, 4G, 3G, 2G, GPRS
-- Ethernet connections
-- VPN and tethered connections
+### Data Protection
+- **Permission handling** best practices
+- **Secure data storage** with Room
+- **Network security** with HTTPS
+- **User privacy** protection
 
-## Performance Optimizations
+### Permissions
+- **Runtime permission** requests
+- **Permission rationale** dialogs
+- **Graceful degradation** for denied permissions
 
-- **Efficient Sensor Sampling**: Configurable sampling rates to balance accuracy and battery life
-- **Background Processing**: Coroutines for non-blocking operations
-- **Memory Management**: Proper lifecycle management and resource cleanup
-- **Battery Optimization**: Smart sensor polling and network request batching
+## 📈 Future Enhancements
 
-## Security & Privacy
+### Planned Features
+- **Network history** tracking
+- **Advanced charts** and analytics
+- **Export functionality** for data
+- **Cloud sync** capabilities
+- **Widget support** for quick access
+- **Notification** system for alerts
 
-- **Permission Management**: Runtime permission requests with clear explanations
-- **Data Privacy**: All sensor and network data stays on device
-- **Secure Networking**: HTTPS for all network requests
-- **No Data Collection**: App doesn't collect or transmit personal data
+### Technical Improvements
+- **Kotlin migration** for new features
+- **Jetpack Compose** integration
+- **Advanced animations** and transitions
+- **Accessibility** improvements
+- **Internationalization** support
 
-## Contributing
+## 🤝 Contributing
+
+We welcome contributions! Please see our contributing guidelines:
 
 1. Fork the repository
 2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-## License
+## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+## 🙏 Acknowledgments
 
-For issues, feature requests, or questions:
-- Open an issue on GitHub
-- Check existing documentation
-- Review the code comments for implementation details
+- **Material Design** team for design guidelines
+- **Android Developer** community
+- **Open source** contributors
+- **Icon designers** for beautiful graphics
+
+## 📞 Support
+
+For support and questions:
+- Create an issue on GitHub
+- Email: support@networksensor.app
+- Documentation: [Wiki](https://github.com/yourusername/NetworkSensorApp/wiki)
 
 ---
 
-**Built with ❤️ using modern Android development practices**
+**Built with ❤️ using Java and modern Android development practices**

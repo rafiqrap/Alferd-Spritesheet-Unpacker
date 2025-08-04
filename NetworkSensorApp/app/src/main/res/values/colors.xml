@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary_blue">#2196F3</color>
+    <color name="primary_indigo">#3F51B5</color>
+    <color name="primary_purple">#9C27B0</color>
+    <color name="primary_teal">#009688</color>
+    
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#667eea</color>
+    <color name="gradient_end">#764ba2</color>
+    <color name="gradient_blue_start">#4facfe</color>
+    <color name="gradient_blue_end">#00f2fe</color>
+    <color name="gradient_purple_start">#a8edea</color>
+    <color name="gradient_purple_end">#fed6e3</color>
+    
+    <!-- Status Colors -->
+    <color name="success_green">#4CAF50</color>
+    <color name="warning_orange">#FF9800</color>
+    <color name="error_red">#F44336</color>
+    <color name="info_blue">#2196F3</color>
+    
+    <!-- Neutral Colors -->
+    <color name="background_light">#FAFAFA</color>
+    <color name="background_dark">#121212</color>
+    <color name="surface_light">#FFFFFF</color>
+    <color name="surface_dark">#1E1E1E</color>
+    <color name="card_light">#FFFFFF</color>
+    <color name="card_dark">#2D2D2D</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary_light">#212121</color>
+    <color name="text_secondary_light">#757575</color>
+    <color name="text_primary_dark">#E0E0E0</color>
+    <color name="text_secondary_dark">#B0B0B0</color>
+    
+    <!-- Accent Colors -->
+    <color name="accent_cyan">#00BCD4</color>
+    <color name="accent_lime">#CDDC39</color>
+    <color name="accent_amber">#FFC107</color>
+    <color name="accent_deep_orange">#FF5722</color>
+    
+    <!-- Network Status Colors -->
+    <color name="network_excellent">#4CAF50</color>
+    <color name="network_good">#8BC34A</color>
+    <color name="network_fair">#FFC107</color>
+    <color name="network_poor">#FF5722</color>
+    
+    <!-- Sensor Colors -->
+    <color name="sensor_accelerometer">#9C27B0</color>
+    <color name="sensor_gyroscope">#3F51B5</color>
+    <color name="sensor_magnetometer">#009688</color>
+    <color name="sensor_temperature">#FF5722</color>
+    <color name="sensor_humidity">#607D8B</color>
+    <color name="sensor_pressure">#795548</color>
+    
+    <!-- Standard Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    
+    <!-- Bottom Navigation Colors -->
+    <color name="bottom_nav_selected">#2196F3</color>
+    <color name="bottom_nav_unselected">#757575</color>
+    
+</resources>
