@@ -14,34 +14,79 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = PrimaryBlue,
+    onPrimary = Color.White,
+    primaryContainer = PrimaryBlue.copy(alpha = 0.2f),
+    onPrimaryContainer = PrimaryBlue,
+    
+    secondary = PrimaryTeal,
+    onSecondary = Color.White,
+    secondaryContainer = PrimaryTeal.copy(alpha = 0.2f),
+    onSecondaryContainer = PrimaryTeal,
+    
+    tertiary = PrimaryPurple,
+    onTertiary = Color.White,
+    tertiaryContainer = PrimaryPurple.copy(alpha = 0.2f),
+    onTertiaryContainer = PrimaryPurple,
+    
+    background = BackgroundDark,
+    onBackground = TextPrimaryDark,
+    surface = SurfaceDark,
+    onSurface = TextPrimaryDark,
+    
+    surfaceVariant = CardDark,
+    onSurfaceVariant = TextSecondaryDark,
+    
+    error = ErrorRed,
+    onError = Color.White,
+    errorContainer = ErrorRed.copy(alpha = 0.2f),
+    onErrorContainer = ErrorRed,
+    
+    outline = TextSecondaryDark.copy(alpha = 0.5f),
+    outlineVariant = TextSecondaryDark.copy(alpha = 0.3f)
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+    primary = PrimaryBlue,
     onPrimary = Color.White,
+    primaryContainer = PrimaryBlue.copy(alpha = 0.1f),
+    onPrimaryContainer = PrimaryBlue,
+    
+    secondary = PrimaryTeal,
     onSecondary = Color.White,
+    secondaryContainer = PrimaryTeal.copy(alpha = 0.1f),
+    onSecondaryContainer = PrimaryTeal,
+    
+    tertiary = PrimaryPurple,
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    tertiaryContainer = PrimaryPurple.copy(alpha = 0.1f),
+    onTertiaryContainer = PrimaryPurple,
+    
+    background = BackgroundLight,
+    onBackground = TextPrimaryLight,
+    surface = SurfaceLight,
+    onSurface = TextPrimaryLight,
+    
+    surfaceVariant = CardLight,
+    onSurfaceVariant = TextSecondaryLight,
+    
+    error = ErrorRed,
+    onError = Color.White,
+    errorContainer = ErrorRed.copy(alpha = 0.1f),
+    onErrorContainer = ErrorRed,
+    
+    outline = TextSecondaryLight.copy(alpha = 0.5f),
+    outlineVariant = TextSecondaryLight.copy(alpha = 0.3f)
 )
 
 @Composable
 fun NetworkSensorTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false, // Disabled to use our custom colors
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -57,8 +102,9 @@ fun NetworkSensorTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            // Use transparent status bar for modern look
+            window.statusBarColor = Color.Transparent.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 
